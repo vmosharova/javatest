@@ -12,7 +12,10 @@ public class MyFirstProgram {
         Rectangle r = new Rectangle(4, 6);
         System.out.println("Площадь прямоугольника со сторонами "  + r.a + r.b + "=" + r.area());
 
-        System.out.println(distance());
+        /*System.out.println(distance());*/
+        Point p1 = new Point(1, 2);
+        Point p2 = new Point(3, 4);
+        System.out.println(p1.distance(p2));
 
     }
 
@@ -20,11 +23,11 @@ public class MyFirstProgram {
         System.out.println("Hello" + somebody + "!");
     }
 
-    public static double distance() {
+    /***public static double distance() {
         Point p1 = new Point(1, 2);
         Point p2 = new Point(3, 4);
         double result = (p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y);
         return Math.sqrt(result);
-    }
+    }***/
 
 }
