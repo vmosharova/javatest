@@ -7,8 +7,8 @@
       <sourceFolder url="file://$MODULE_DIR$/../../Sandbox/src/test/java" isTestSource="true" />
     </content>
     <orderEntry type="inheritedJdk" />
-    <orderEntry type="module" module-name="Sandbox.main" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="Sandbox.main" />
     <orderEntry type="library" name="Gradle: org.testng:testng:7.3.0" level="project" />
     <orderEntry type="library" name="Gradle: com.beust:jcommander:1.78" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.ant:ant:1.10.3" level="project" />
