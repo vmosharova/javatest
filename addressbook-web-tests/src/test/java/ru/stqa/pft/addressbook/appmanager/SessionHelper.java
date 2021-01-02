@@ -15,4 +15,9 @@ public class SessionHelper extends HelperBase {
         wd.findElement(By.id("LoginForm")).submit();
         //click(By.id("LoginForm")); - не получается, потому что в этой функции в конце click(), а нам требуется submit(). Оставлена оригинальная строка (предыдущая)
     }
+
+    public void logOut() {
+        wd.findElement(By.linkText("Logout")).click();
+    }
+
 }
