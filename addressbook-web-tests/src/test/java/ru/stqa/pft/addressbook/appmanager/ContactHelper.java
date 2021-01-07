@@ -17,4 +17,15 @@ public class ContactHelper extends HelperBase {
         click(By.name("submit"));
     }
 
+    public void chooseContact() {
+        click(By.name("selected[]")); //или id=3
+    }
+
+    public void deleteContact() {
+        click(By.xpath("//input[@value='Delete']")); // или //input[@value='Delete']
+    }
+
+    public void closeAlertDeletionWindow() {
+        wd.switchTo().alert().accept();
+    }
 }
