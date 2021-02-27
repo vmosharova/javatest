@@ -51,4 +51,14 @@ public class ContactHelper extends HelperBase {
         type(By.name("middlename"), newContact.getMiddlename());
         type(By.name("lastname"), newContact.getSurname());
     }
+
+    public boolean isThereAContact() {
+        return isElementPresent(By.name("selected[]"));
+    }
+
+    public void createContact(NewContact newContact) {
+        click(By.linkText("add new"));
+        newContactCreationWithNameMidnameSurname(newContact, true);
+        wd.findElement(By.linkText("home page")).click();
+    }
 }
