@@ -11,7 +11,7 @@ public class GroupHelper extends HelperBase {
     }
 
     public void returntoGroupPage() {
-        click(By.linkText("Logout"));
+        click(By.linkText("group page"));
     }
 
     public void submitGroupCreation() {
@@ -42,5 +42,16 @@ public class GroupHelper extends HelperBase {
 
     public void submitGroupModification() {
         click(By.name("update"));
+    }
+
+    public void createGroup(GroupData group) {
+        initGroupCreation();
+        fillGroupForm(group);
+        submitGroupCreation();
+        returntoGroupPage();
+    }
+
+    public boolean isThereAGroup() {
+        return isElementPresent(By.name("selected[]")); // return isElementPresent(By.name("selected[]"))
     }
 }
