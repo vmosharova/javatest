@@ -23,7 +23,7 @@ public class NavigationHelper extends HelperBase {
         if (isElementPresent(By.id("maintable"))) {
             return;
         }
-        wd.findElement(By.linkText("home page")).click();
+        wd.findElement(By.linkText("home")).click();
     }
 
     public void gotoCreateNewContactPage() {

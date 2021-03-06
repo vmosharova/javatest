@@ -27,11 +27,11 @@ public class ContactHelper extends HelperBase {
     }
 
     public void chooseContact() {
-        click(By.name("selected[]")); //или id=3
+        click(By.name("selected[]"));
     }
 
     public void deleteContact() {
-        click(By.xpath("//input[@value='Delete']")); // или //input[@value='Delete']
+        click(By.xpath("//input[@value='Delete']"));
     }
 
     public void closeAlertDeletionWindow() {
@@ -60,5 +60,9 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("add new"));
         newContactCreationWithNameMidnameSurname(newContact, true);
         wd.findElement(By.linkText("home page")).click();
+    }
+
+    public int getContactCount() {
+        return wd.findElements(By.name("selected[]")).size(); // return wd.findElements(By.xpath("//td/input")).size();
     }
 }
