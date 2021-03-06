@@ -14,7 +14,7 @@ public class ContactModificationTests extends TestBase {
                         "Name1","MidName1","Surname1", "[none]")); // Почему-то тест падает, если group: null
         }
         int before = app.getContactHelper().getContactCount();
-        app.getContactHelper().initContactModification();
+        app.getContactHelper().initContactModification(before - 1);
         app.getContactHelper().editingContactWithNameMidnameSurname(new NewContact(
                 "Name1Edited", "MidName2Edited", "Surname3Edited", "[none]"), false); //Почему-то тест падает, если group: null !
         app.getContactHelper().submitContactModification();
