@@ -2,7 +2,10 @@ package ru.stqa.pft.addressbook.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.NewContact;
+
+import java.util.List;
 
 public class ContactDeletionTests extends TestBase {
 
@@ -11,17 +14,17 @@ public class ContactDeletionTests extends TestBase {
         app.getNavigationHelper().returntoHomePage();
         if (! app.getContactHelper().isThereAContact()) {
             app.getContactHelper().createContact(new NewContact(
-                    "Name","MidName","Surname", "test1")); // Почему-то тест падает, если group: null
+                    "Name","MidName","Surname", "[none]")); // Почему-то тест падает, если group: null
         }
-        int before = app.getContactHelper().getContactCount();
-        System.out.println(before);
-        app.getContactHelper().chooseContact(before - 1);
+        List<NewContact> before = app.getContactHelper().getContactList();
+        System.out.println(before.size());
+        app.getContactHelper().chooseContact(before.size() - 1);
         app.getContactHelper().deleteContact();
         app.getContactHelper().closeAlertDeletionWindow();
         app.getNavigationHelper().returntoHomePage(); //
-        int after = app.getContactHelper().getContactCount();
-        System.out.println(after);
-        //Assert.assertEquals(after, before - 1); //- Тут почему-то before = after; почему?
+        List<NewContact> after = app.getContactHelper().getContactList();
+        System.out.println(after.size());
+        //Assert.assertEquals(after.size(), before.size() - 1); //- Тут почему-то before = after; почему?
     }
 
 
