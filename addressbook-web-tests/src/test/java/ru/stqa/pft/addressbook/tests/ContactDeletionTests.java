@@ -23,10 +23,10 @@ public class ContactDeletionTests extends TestBase {
         app.getNavigationHelper().returntoHomePage(); //
         List<NewContact> after = app.getContactHelper().getContactList();
         System.out.println(after.size());
-        //Assert.assertEquals(after.size(), before.size()  - 1); //- Тут почему-то before = after; почему?
+        Assert.assertEquals(after.size(), before.size()  - 1); //- Тут почему-то before = after; почему?
 
-        //before.remove(before.size() - 1);
-        //Assert.assertEquals(before, after);
+        before.remove(before.size() - 1);
+        Assert.assertEquals(before, after);
     }
 
 
