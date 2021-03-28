@@ -1,16 +1,30 @@
 package ru.stqa.pft.addressbook.model;
 
 public class NewContact {
+    private int id;
     private static String group;
     private final String name;
     private final String middlename;
     private final String surname;
 
     public NewContact(String name, String middlename, String surname, String group) {
+        this.id = Integer.MAX_VALUE;
         this.name = name;
         this.middlename = middlename;
         this.surname = surname;
         this.group = group;
+    }
+
+    public NewContact(int id, String name, String middlename, String surname, String group) {
+        this.id = id;
+        this.name = name;
+        this.middlename = middlename;
+        this.surname = surname;
+        this.group = group;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -29,10 +43,16 @@ public class NewContact {
         return group;
     }
 
+    public int getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "NewContact{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", middlename='" + middlename + '\'' +
                 ", surname='" + surname + '\'' +
                 '}';
     }
