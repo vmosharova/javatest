@@ -22,16 +22,13 @@ public class ContactDeletionTests extends TestBase {
     public void testContactDeletion() {
         List<NewContact> before = app.contact().list();
         int index = before.size() - 1;
-        app.contact().choose(index);
-        app.contact().delete();
-        app.contact().closeAlertDeletionWindow();
-        app.goTo().homePage(); //
+        app.contact().delete(index);
+        app.goTo().homePage();
         List<NewContact> after = app.contact().list();
         Assert.assertEquals(after.size(), before.size()  - 1); //- Тут почему-то before = after; почему?
 
         before.remove(index);
         Assert.assertEquals(before, after);
     }
-
 
 }
