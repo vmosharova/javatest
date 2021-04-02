@@ -30,11 +30,11 @@ public class ContactHelper extends HelperBase {
         click(By.name("submit"));
     }
 
-    public void chooseContact(int index) {
+    public void choose(int index) {
         wd.findElements(By.name("selected[]")).get(index).click();
     }
 
-    public void deleteContact() {
+    public void delete() {
         click(By.xpath("//input[@value='Delete']"));
     }
 
@@ -42,15 +42,22 @@ public class ContactHelper extends HelperBase {
         wd.switchTo().alert().accept();
     }
 
-    public void initContactModification(int i) {
+    public void modify(int i) {
         wd.findElements(By.xpath("//img[@alt='Edit']")).get(i).click(); // (//img[@alt='Edit'])[2]
     }
 
-    public void submitContactModification() {
+    private void deleteContact(int index) {
+        choose(index);
+        delete();
+        closeAlertDeletionWindow();
+    }
+
+
+    public void submitModification() {
         click(By.xpath("(//input[@name='update'])[2]"));
     }
 
-    public void editingContactWithNameMidnameSurname(NewContact newContact, boolean b) {
+    public void edit(NewContact newContact, boolean b) {
         type(By.name("firstname"), newContact.getName());
         type(By.name("middlename"), newContact.getMiddlename());
         type(By.name("lastname"), newContact.getSurname());
@@ -60,7 +67,7 @@ public class ContactHelper extends HelperBase {
         return isElementPresent(By.name("selected[]"));
     }
 
-    public void createContact(NewContact newContact) {
+    public void create(NewContact newContact) {
         click(By.linkText("add new"));
         newContactCreationWithNameMidnameSurname(newContact, true);
         wd.findElement(By.linkText("home page")).click();
@@ -70,7 +77,7 @@ public class ContactHelper extends HelperBase {
         return wd.findElements(By.name("selected[]")).size(); // return wd.findElements(By.xpath("//td/input")).size();
     }
 
-    public List<NewContact> getContactList() {
+    public List<NewContact> list() {
         List<NewContact> contacts = new ArrayList<NewContact>();
         List<WebElement> elements = wd.findElements(By.xpath(".//*[@id='maintable']/tbody/tr"));
         elements.remove(0);

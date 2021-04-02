@@ -19,7 +19,7 @@ public class NavigationHelper extends HelperBase {
       //wd.findElement(By.linkText("groups")).click();
     }
 
-    public void returntoHomePage() {
+    public void homePage() {
         if (isElementPresent(By.tagName("h1"))
                 &&  wd.findElement(By.tagName("h1")).getText().equals("home")) {
             return;
@@ -27,7 +27,7 @@ public class NavigationHelper extends HelperBase {
         wd.findElement(By.linkText("home")).click();
     }
 
-    public void gotoCreateNewContactPage() {
+    public void createNewContactPage() {
         click(By.linkText("add new"));
     }
 }

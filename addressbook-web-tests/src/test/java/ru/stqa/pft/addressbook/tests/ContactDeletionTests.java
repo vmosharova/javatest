@@ -11,22 +11,22 @@ public class ContactDeletionTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditionsForContacts() {
-        app.goTo().returntoHomePage();
-        if (! app.contact().isThereAContact()) {
-            app.contact().createContact(new NewContact(
+        app.goTo().homePage();
+        if (app.contact().list().size() == 0) {
+            app.contact().create(new NewContact(
                     "Name1","MidName1","Surname1", "[none]")); // Почему-то тест падает, если group: null
         }
     }
 
     @Test
     public void testContactDeletion() {
-        List<NewContact> before = app.contact().getContactList();
+        List<NewContact> before = app.contact().list();
         int index = before.size() - 1;
-        app.contact().chooseContact(index);
-        app.contact().deleteContact();
+        app.contact().choose(index);
+        app.contact().delete();
         app.contact().closeAlertDeletionWindow();
-        app.goTo().returntoHomePage(); //
-        List<NewContact> after = app.contact().getContactList();
+        app.goTo().homePage(); //
+        List<NewContact> after = app.contact().list();
         Assert.assertEquals(after.size(), before.size()  - 1); //- Тут почему-то before = after; почему?
 
         before.remove(index);

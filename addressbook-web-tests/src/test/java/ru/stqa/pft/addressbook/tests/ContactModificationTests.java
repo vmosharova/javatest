@@ -12,24 +12,24 @@ public class ContactModificationTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditionsForContacts() {
-        app.goTo().returntoHomePage();
-        if (! app.contact().isThereAContact()) {
-            app.contact().createContact(new NewContact(
+        app.goTo().homePage();
+        if (app.contact().list().size() == 0) {
+            app.contact().create(new NewContact(
                     "Name1","MidName1","Surname1", "[none]")); // Почему-то тест падает, если group: null
         }
     }
 
     @Test
     public void testContactModification() {
-        List<NewContact> before = app.contact().getContactList();
+        List<NewContact> before = app.contact().list();
         int index = before.size() - 1;
-        app.contact().initContactModification(index);
+        app.contact().modify(index);
         NewContact contact = new NewContact(before.get(index).getId(),
                 "Name1Edited", "MidName2Edited", "Surname3Edited", "[none]");
-        app.contact().editingContactWithNameMidnameSurname(contact, false);
-        app.contact().submitContactModification();
-        app.goTo().returntoHomePage();
-        List<NewContact> after = app.contact().getContactList();
+        app.contact().edit(contact, false);
+        app.contact().submitModification();
+        app.goTo().homePage();
+        List<NewContact> after = app.contact().list();
         Assert.assertEquals(after.size(), before.size());
 
         before.remove(index);

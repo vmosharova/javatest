@@ -72,7 +72,7 @@ public class ApplicationManager {
         return contactHelper;
     }
 
-    public SessionHelper getSessionHelper() {
+    public SessionHelper session() {
         return sessionHelper;
     }
 }
