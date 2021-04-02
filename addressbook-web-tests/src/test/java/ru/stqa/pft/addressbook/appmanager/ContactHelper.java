@@ -43,7 +43,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void initContactModification(int i) {
-        click(By.xpath("//img[@alt='Edit']")); // (//img[@alt='Edit'])[2]
+        wd.findElements(By.xpath("//img[@alt='Edit']")).get(i).click(); // (//img[@alt='Edit'])[2]
     }
 
     public void submitContactModification() {
