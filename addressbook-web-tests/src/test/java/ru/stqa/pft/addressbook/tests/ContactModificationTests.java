@@ -12,26 +12,27 @@ public class ContactModificationTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditionsForContacts() {
-        app.getNavigationHelper().returntoHomePage();
-        if (! app.getContactHelper().isThereAContact()) {
-            app.getContactHelper().createContact(new NewContact(
+        app.goTo().returntoHomePage();
+        if (! app.contact().isThereAContact()) {
+            app.contact().createContact(new NewContact(
                     "Name1","MidName1","Surname1", "[none]")); // Почему-то тест падает, если group: null
         }
     }
 
     @Test
     public void testContactModification() {
-        List<NewContact> before = app.getContactHelper().getContactList();
-        app.getContactHelper().initContactModification(before.size() - 1);
-        NewContact contact = new NewContact(before.get(before.size() - 1).getId(),
+        List<NewContact> before = app.contact().getContactList();
+        int index = before.size() - 1;
+        app.contact().initContactModification(index);
+        NewContact contact = new NewContact(before.get(index).getId(),
                 "Name1Edited", "MidName2Edited", "Surname3Edited", "[none]");
-        app.getContactHelper().editingContactWithNameMidnameSurname(contact, false);
-        app.getContactHelper().submitContactModification();
-        app.getNavigationHelper().returntoHomePage();
-        List<NewContact> after = app.getContactHelper().getContactList();
+        app.contact().editingContactWithNameMidnameSurname(contact, false);
+        app.contact().submitContactModification();
+        app.goTo().returntoHomePage();
+        List<NewContact> after = app.contact().getContactList();
         Assert.assertEquals(after.size(), before.size());
 
-        before.remove(before.size() - 1);
+        before.remove(index);
         before.add(contact);
         Comparator<? super NewContact> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
         before.sort(byId);
