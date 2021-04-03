@@ -14,7 +14,7 @@ public class ContactCreationTests extends TestBase {
         app.goTo().homePage();
         List<NewContact> before = app.contact().list();
         app.goTo().createNewContactPage();
-        NewContact contact = new NewContact("Name1", "MidName2", "Surname3", "[none]");
+        NewContact contact = new NewContact().withName("Name1").withGroup("[none]"); // "MidName2", "Surname3", "[none]");
         app.contact().newContactCreationWithNameMidnameSurname(contact, true);
         app.goTo().homePage();
         List<NewContact> after = app.contact().list();

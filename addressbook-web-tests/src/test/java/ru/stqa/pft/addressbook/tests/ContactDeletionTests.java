@@ -13,8 +13,7 @@ public class ContactDeletionTests extends TestBase {
     public void ensurePreconditionsForContacts() {
         app.goTo().homePage();
         if (app.contact().list().size() == 0) {
-            app.contact().create(new NewContact(
-                    "Name1","MidName1","Surname1", "[none]")); // Почему-то тест падает, если group: null
+            app.contact().create(new NewContact().withName("Name1").withGroup("[none]"));
         }
     }
 

@@ -14,8 +14,9 @@ public class ContactModificationTests extends TestBase {
     public void ensurePreconditionsForContacts() {
         app.goTo().homePage();
         if (app.contact().list().size() == 0) {
-            app.contact().create(new NewContact(
-                    "Name1","MidName1","Surname1", "[none]")); // Почему-то тест падает, если group: null
+            app.contact().create(new NewContact()
+                    .withName("Name1").withMiddlename("MidName1")
+                    .withSurname("Surname1").withGroup("[none]"));
         }
     }
 
@@ -24,8 +25,10 @@ public class ContactModificationTests extends TestBase {
         List<NewContact> before = app.contact().list();
         int index = before.size() - 1;
         app.contact().modify(index);
-        NewContact contact = new NewContact(before.get(index).getId(),
-                "Name1Edited", "MidName2Edited", "Surname3Edited", "[none]");
+        NewContact contact = new NewContact()
+                .withId(before.get(index).getId())
+                .withName("Name1").withMiddlename("MidNameEdited")
+                .withSurname("SurnameEdited").withGroup("[none]");
         app.contact().edit(contact, false);
         app.contact().submitModification();
         app.goTo().homePage();
