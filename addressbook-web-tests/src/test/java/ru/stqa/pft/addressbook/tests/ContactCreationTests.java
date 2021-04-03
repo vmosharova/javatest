@@ -4,26 +4,23 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.NewContact;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.Set;
 
 public class ContactCreationTests extends TestBase {
 
     @Test
     public void testContactCreation() throws Exception {
         app.goTo().homePage();
-        List<NewContact> before = app.contact().list();
+        Set<NewContact> before = app.contact().all();
         app.goTo().createNewContactPage();
         NewContact contact = new NewContact().withName("Name1").withGroup("[none]"); // "MidName2", "Surname3", "[none]");
         app.contact().newContactCreationWithNameMidnameSurname(contact, true);
         app.goTo().homePage();
-        List<NewContact> after = app.contact().list();
+        Set<NewContact> after = app.contact().all();
         Assert.assertEquals(after.size(), before.size() + 1);
 
+        contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()); // максимальный среди всех идентификаторов
         before.add(contact);
-        Comparator<? super NewContact> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
-        before.sort(byId);
-        after.sort(byId);
         Assert.assertEquals(before, after);
 
         app.session().logOut();
