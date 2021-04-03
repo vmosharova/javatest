@@ -3,9 +3,9 @@ package ru.stqa.pft.addressbook.model;
 public class NewContact {
     private int id;
     private static String group;
-    private final String name;
-    private final String middlename;
-    private final String surname;
+    private String name;
+    private String middlename;
+    private String surname;
 
     public NewContact(String name, String middlename, String surname, String group) {
         this.id = Integer.MAX_VALUE;
