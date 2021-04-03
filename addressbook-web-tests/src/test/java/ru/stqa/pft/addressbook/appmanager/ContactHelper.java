@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.NewContact;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,10 +31,6 @@ public class ContactHelper extends HelperBase {
         click(By.name("submit"));
     }
 
-    public void choose(int index) {
-        wd.findElements(By.name("selected[]")).get(index).click();
-    }
-
     public void chooseById(int id) {
         wd.findElement(By.cssSelector("input[id='" + id + "']")).click();
     }
@@ -48,15 +43,8 @@ public class ContactHelper extends HelperBase {
         wd.switchTo().alert().accept();
     }
 
-    public void modify(int i) {
-        wd.findElements(By.xpath("//img[@alt='Edit']")).get(i).click(); // (//img[@alt='Edit'])[2]
-    }
-
-
-    public void delete(int index) {
-        choose(index);
-        deleteSelectedContact();
-        closeAlertDeletionWindow();
+    public void modify() {
+        wd.findElement(By.xpath("//img[@alt='Edit']")).click();
     }
 
     public void delete(NewContact contact) {
@@ -89,24 +77,6 @@ public class ContactHelper extends HelperBase {
     public int getContactCount() {
         return wd.findElements(By.name("selected[]")).size(); // return wd.findElements(By.xpath("//td/input")).size();
     }
-
-    public List<NewContact> list() {
-        List<NewContact> contacts = new ArrayList<NewContact>();
-        List<WebElement> elements = wd.findElements(By.xpath(".//*[@id='maintable']/tbody/tr"));
-        elements.remove(0);
-        for (WebElement element : elements) {
-            List<WebElement> cells = element.findElements(By.tagName("td"));
-            String firstName = cells.get(2).getText();
-            String lastName = cells.get(1).getText();
-
-            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            NewContact contact = new NewContact()
-                    .withId(id).withName(firstName).withSurname(lastName).withGroup("[none]");
-            contacts.add(contact);
-        }
-        return contacts;
-    }
-
 
     public Set<NewContact> all() {
         Set<NewContact> contacts = new HashSet<NewContact>();
