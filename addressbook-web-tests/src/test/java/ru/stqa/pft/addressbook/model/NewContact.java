@@ -6,6 +6,12 @@ public class NewContact {
     private String name;
     private String middlename;
     private String surname;
+    private String homePhone;
+    private String mobilePhone;
+    private String workPhone;
+
+    public NewContact() {
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -52,6 +58,20 @@ public class NewContact {
         return this;
     }
 
+    public NewContact withHomePhone(String homePhone) {
+        this.homePhone = homePhone;
+        return this;
+    }
+
+    public NewContact withMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+        return this;
+    }
+
+    public NewContact withWorkPhone(String workPhone) {
+        this.workPhone = workPhone;
+        return this;
+    }
 
     public String getName() {
         return name;
@@ -71,6 +91,18 @@ public class NewContact {
 
     public int getId() {
         return id;
+    }
+
+    public String getHomePhone() {
+        return homePhone;
+    }
+
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public String getWorkPhone() {
+        return workPhone;
     }
 
     @Override
