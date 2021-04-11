@@ -25,7 +25,7 @@ public class ContactModificationTests extends TestBase {
     public void testContactModification() {
         Contacts before = app.contact().all();
         NewContact modifiedContact = before.iterator().next();
-        app.contact().modify();
+        app.contact().modify(modifiedContact.getId());
         NewContact contact = new NewContact()
                 .withId(modifiedContact.getId())
                 .withName("Name1").withMiddlename("MidNameEdited")
