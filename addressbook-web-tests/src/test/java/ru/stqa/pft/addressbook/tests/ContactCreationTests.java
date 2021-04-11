@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.NewContact;
@@ -14,10 +15,11 @@ public class ContactCreationTests extends TestBase {
         app.goTo().homePage();
         Contacts before = app.contact().all();
         app.goTo().createNewContactPage();
-        NewContact contact = new NewContact().withName("Name1").withGroup("[none]"); // "MidName2", "Surname3", "[none]");
-        app.contact().newContactCreationWithNameMidnameSurname(contact, true);
+        NewContact contact = new NewContact().withName("Name1").withSurname("Surmane1").withGroup("[none]"); // "MidName2", "Surname3", "[none]");
+        app.contact().create(contact);
         app.goTo().homePage();
         Contacts after = app.contact().all();
+        app.goTo().homePage();
         assertThat(after.size(), equalTo(before.size() + 1));
 
         assertThat(after, equalTo(

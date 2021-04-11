@@ -30,4 +30,5 @@ public class NavigationHelper extends HelperBase {
     public void createNewContactPage() {
         click(By.linkText("add new"));
     }
+
 }
