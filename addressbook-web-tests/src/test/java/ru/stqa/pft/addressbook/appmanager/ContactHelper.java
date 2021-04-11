@@ -103,4 +103,26 @@ public class ContactHelper extends HelperBase {
         return new Contacts(contactCache);
     }
 
+    /* public NewContact infoFromEditForm(NewContact contact) {
+        initContactModificationById(contact.getId());
+        String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+        String middlename = wd.findElement(By.name("middlename")).getAttribute("value");
+        String surname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String home = wd.findElement(By.name("home")).getAttribute("value");
+        String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+        String work = wd.findElement(By.name("work")).getAttribute("value");
+        wd.navigate().back();
+        return new NewContact()
+                .withId(contact.getId())
+                .withName(firstname)
+                .withMiddlename(middlename)
+                .withSurname(surname)
+                .withHomeNumber(home)
+                .withMobileNumber(mobile)
+                .withWorkNumber(work);
+    } */
+
+    private void initContactModificationById(int id) {
+        wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
+    }
 }
