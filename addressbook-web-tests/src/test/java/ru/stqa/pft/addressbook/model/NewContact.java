@@ -9,6 +9,16 @@ public class NewContact {
     private String homePhone;
     private String mobilePhone;
     private String workPhone;
+    private String allPhones;
+
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public NewContact withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
 
     public NewContact() {
     }
