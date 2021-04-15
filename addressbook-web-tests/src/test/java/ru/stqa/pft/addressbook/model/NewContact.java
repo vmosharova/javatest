@@ -10,15 +10,11 @@ public class NewContact {
     private String mobilePhone;
     private String workPhone;
     private String allPhones;
-
-    public String getAllPhones() {
-        return allPhones;
-    }
-
-    public NewContact withAllPhones(String allPhones) {
-        this.allPhones = allPhones;
-        return this;
-    }
+    private String address;
+    private String firstEmail;
+    private String secondEmail;
+    private String thirdEmail;
+    private String allEmails;
 
     public NewContact() {
     }
@@ -82,6 +78,32 @@ public class NewContact {
         this.workPhone = workPhone;
         return this;
     }
+    public NewContact withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
+    public NewContact withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public NewContact withFirstEmail(String firstEmail) {
+        this.firstEmail = firstEmail;
+        return this;
+    }
+    public NewContact withSecondEmail(String secondEmail) {
+        this.secondEmail = secondEmail;
+        return this;
+    }
+    public NewContact withThirdEmail(String thirdEmail) {
+        this.thirdEmail = thirdEmail;
+        return this;
+    }
+
+    public NewContact withAllEmails(String allEmails) {
+        this.allEmails = allEmails;
+        return this;
+    }
 
     public String getName() {
         return name;
@@ -114,6 +136,27 @@ public class NewContact {
     public String getWorkPhone() {
         return workPhone;
     }
+
+    public String getAllPhones() {
+        return allPhones;
+    }
+    public String getAllEmails() {
+        return allEmails;
+    }
+    public String getAddress() {
+        return address;
+    }
+    public String getFirstEmail() {
+        return firstEmail;
+    }
+    public String getSecondEmail() {
+        return secondEmail;
+    }
+    public Object getThirdEmail() {
+        return thirdEmail;
+    }
+
+
 
     @Override
     public String toString() {

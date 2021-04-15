@@ -93,10 +93,12 @@ public class ContactHelper extends HelperBase {
             String firstName = cells.get(2).getText();
             String lastName = cells.get(1).getText();
             String allPhones = cells.get(5).getText();
+            String address = cells.get(3).getText();
+            String allEmails = cells.get(4).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             contactCache.add(new NewContact()
                     .withId(id).withName(firstName).withSurname(lastName).withGroup("[none]")
-                    .withAllPhones(allPhones));
+                    .withAllPhones(allPhones).withAddress(address).withAllEmails(allEmails));
         }
         return new Contacts(contactCache);
     }
@@ -109,6 +111,10 @@ public class ContactHelper extends HelperBase {
         String home = wd.findElement(By.name("home")).getAttribute("value");
         String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
         String work = wd.findElement(By.name("work")).getAttribute("value");
+        String address = wd.findElement(By.name("address")).getAttribute("value");
+        String firstEmail = wd.findElement(By.name("email")).getAttribute("value");
+        String secondEmail = wd.findElement(By.name("email2")).getAttribute("value");
+        String thirdEmail = wd.findElement(By.name("email3")).getAttribute("value");
         wd.navigate().back();
         return new NewContact()
                 .withId(contact.getId())
@@ -117,7 +123,11 @@ public class ContactHelper extends HelperBase {
                 .withSurname(surname)
                 .withHomePhone(home)
                 .withMobilePhone(mobile)
-                .withWorkPhone(work);
+                .withWorkPhone(work)
+                .withAddress(address)
+                .withFirstEmail(firstEmail)
+                .withSecondEmail(secondEmail)
+                .withThirdEmail(thirdEmail);
     }
 
     private void initContactModificationById(int id) {

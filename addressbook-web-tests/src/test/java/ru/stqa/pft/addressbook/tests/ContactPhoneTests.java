@@ -18,6 +18,19 @@ public class ContactPhoneTests extends TestBase {
         NewContact contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
         assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
+        assertThat(contact.getAddress(), equalTo(contactInfoFromEditForm.getAddress()));
+        assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFromEditForm)));
+    }
+
+    private String mergeEmails(NewContact contact) {
+        return Arrays.asList(contact.getFirstEmail(),
+                contact.getSecondEmail(),
+                contact.getThirdEmail())
+                .stream().filter((s) -> !s.equals(""))
+                // Следующая строка почему-то не работала как .map(ContactPhoneTests::cleaned)
+                // Пришлось заменить её на то, что подсказывала среда разработки
+                .map((Object phone) -> cleaned((String) phone))
+                .collect(Collectors.joining("\n"));
     }
 
     private String mergePhones(NewContact contact) {
