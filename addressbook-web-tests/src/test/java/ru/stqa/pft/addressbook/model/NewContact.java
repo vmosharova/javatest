@@ -152,7 +152,7 @@ public class NewContact {
     public String getSecondEmail() {
         return secondEmail;
     }
-    public Object getThirdEmail() {
+    public String getThirdEmail() {
         return thirdEmail;
     }
 
