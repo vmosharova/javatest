@@ -16,10 +16,11 @@ public class ContactHelper extends HelperBase {
         super(wd);
     }
 
-    public void newContactCreationWithNameMidnameSurname(NewContact newContact, boolean creation) { //creation=true:creation; creation=false:modification
+    public void fillContactForm(NewContact newContact, boolean creation) { //creation=true:creation; creation=false:modification
         type(By.name("firstname"), newContact.getName());
         type(By.name("middlename"), newContact.getMiddlename());
         type(By.name("lastname"), newContact.getSurname());
+        attach(By.name("photo"), newContact.getPhoto());
 
         if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(NewContact.getGroup());
@@ -70,7 +71,7 @@ public class ContactHelper extends HelperBase {
 
     public void create(NewContact newContact) {
         click(By.linkText("add new"));
-        newContactCreationWithNameMidnameSurname(newContact, true);
+        fillContactForm(newContact, true);
         wd.findElement(By.linkText("home page")).click();
         contactCache = null;
     }
