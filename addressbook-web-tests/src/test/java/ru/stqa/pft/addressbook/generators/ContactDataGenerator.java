@@ -54,27 +54,27 @@ public class ContactDataGenerator {
     private void saveAsJson(List<NewContact> contacts, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(contacts);
-        Writer writer = new FileWriter(file);
-        writer.write(json);
-        writer.close();
+        try (Writer writer = new FileWriter(file)) {
+            writer.write(json);
+        }
     }
 
     private void saveAsXml(List<NewContact> contacts, File file) throws IOException {
         XStream xstream = new XStream();
         xstream.processAnnotations(NewContact.class);
         String xml = xstream.toXML(contacts);
-        Writer writer = new FileWriter(file);
-        writer.write(xml);
-        writer.close();
+        try (Writer writer = new FileWriter(file)) {
+            writer.write(xml);
+        }
     }
 
     private static void saveAsCsv(List<NewContact> contacts, File file) throws IOException {
-        Writer writer = new FileWriter(file);
-        for (NewContact contact : contacts) {
-            writer.write(String.format("%s;%s;%s\n", contact.getName(), contact.getMiddlename(),
-                    contact.getSurname()));
+        try (Writer writer = new FileWriter(file)) {
+            for (NewContact contact : contacts) {
+                writer.write(String.format("%s;%s;%s\n", contact.getName(), contact.getMiddlename(),
+                        contact.getSurname()));
+            }
         }
-        writer.close();
     }
 
     private static List<NewContact> generateContacts(int count) {
