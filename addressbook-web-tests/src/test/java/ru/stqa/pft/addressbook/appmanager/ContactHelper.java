@@ -12,23 +12,26 @@ import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
-    public ContactHelper(WebDriver wd) {
-        super(wd);
+    private final ApplicationManager app;
+
+    public ContactHelper(ApplicationManager app) {
+        super(app.wd);
+        this.app = app;
     }
 
     public void fillContactForm(NewContact newContact, boolean creation) { //creation=true:creation; creation=false:modification
-        type(By.name("firstname"), newContact.getName());
-        type(By.name("middlename"), newContact.getMiddlename());
-        type(By.name("lastname"), newContact.getSurname());
+        type(By.name(app.getProperty("web.firstName")), newContact.getName());
+        type(By.name(app.getProperty("web.middleName")), newContact.getMiddlename());
+        type(By.name(app.getProperty("web.surname")), newContact.getSurname());
         attach(By.name("photo"), newContact.getPhoto());
 
         if (creation) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(NewContact.getGroup());
+            new Select(wd.findElement(By.name(app.getProperty("web.newGroup")))).selectByVisibleText(NewContact.getGroup());
         } else {
-            Assert.assertFalse(isElementPresent(By.name("new_group")));
+            Assert.assertFalse(isElementPresent(By.name(app.getProperty("web.newGroup"))));
         }
 
-        click(By.name("submit"));
+        click(By.name(app.getProperty("web.submit")));
     }
 
     public void chooseById(int id) {
@@ -59,9 +62,9 @@ public class ContactHelper extends HelperBase {
     }
 
     public void edit(NewContact newContact, boolean b) {
-        type(By.name("firstname"), newContact.getName());
-        type(By.name("middlename"), newContact.getMiddlename());
-        type(By.name("lastname"), newContact.getSurname());
+        type(By.name(app.getProperty("web.firstName")), newContact.getName());
+        type(By.name(app.getProperty("web.middleName")), newContact.getMiddlename());
+        type(By.name(app.getProperty("web.surname")), newContact.getSurname());
         contactCache = null;
     }
 
@@ -70,9 +73,9 @@ public class ContactHelper extends HelperBase {
     }
 
     public void create(NewContact newContact) {
-        click(By.linkText("add new"));
+        click(By.linkText(app.getProperty("web.addNewContact")));
         fillContactForm(newContact, true);
-        wd.findElement(By.linkText("home page")).click();
+        wd.findElement(By.linkText(app.getProperty("web.homePage"))).click();
         contactCache = null;
     }
 
@@ -106,16 +109,16 @@ public class ContactHelper extends HelperBase {
 
     public NewContact infoFromEditForm(NewContact contact) {
         initContactModificationById(contact.getId());
-        String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
-        String middlename = wd.findElement(By.name("middlename")).getAttribute("value");
-        String surname = wd.findElement(By.name("lastname")).getAttribute("value");
-        String home = wd.findElement(By.name("home")).getAttribute("value");
-        String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
-        String work = wd.findElement(By.name("work")).getAttribute("value");
-        String address = wd.findElement(By.name("address")).getAttribute("value");
-        String firstEmail = wd.findElement(By.name("email")).getAttribute("value");
-        String secondEmail = wd.findElement(By.name("email2")).getAttribute("value");
-        String thirdEmail = wd.findElement(By.name("email3")).getAttribute("value");
+        String firstname = wd.findElement(By.name(app.getProperty("web.firstName"))).getAttribute("value");
+        String middlename = wd.findElement(By.name(app.getProperty("web.middleName"))).getAttribute("value");
+        String surname = wd.findElement(By.name(app.getProperty("web.surname"))).getAttribute("value");
+        String home = wd.findElement(By.name(app.getProperty("web.home"))).getAttribute("value");
+        String mobile = wd.findElement(By.name(app.getProperty("web.mobilePhone"))).getAttribute("value");
+        String work = wd.findElement(By.name(app.getProperty("web.work"))).getAttribute("value");
+        String address = wd.findElement(By.name(app.getProperty("web.address"))).getAttribute("value");
+        String firstEmail = wd.findElement(By.name(app.getProperty("web.firstEmail"))).getAttribute("value");
+        String secondEmail = wd.findElement(By.name(app.getProperty("web.secondEmail"))).getAttribute("value");
+        String thirdEmail = wd.findElement(By.name(app.getProperty("web.thirdEmail"))).getAttribute("value");
         wd.navigate().back();
         return new NewContact()
                 .withId(contact.getId())

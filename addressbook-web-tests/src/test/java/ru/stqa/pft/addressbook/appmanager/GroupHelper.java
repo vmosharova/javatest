@@ -1,7 +1,6 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
@@ -10,8 +9,11 @@ import java.util.List;
 
 public class GroupHelper extends HelperBase {
 
-    public GroupHelper(WebDriver wd) {
-        super(wd);
+    private final ApplicationManager app;
+
+    public GroupHelper(ApplicationManager app) {
+        super(app.wd);
+        this.app = app;
     }
 
     public void returntoGroupPage() {
