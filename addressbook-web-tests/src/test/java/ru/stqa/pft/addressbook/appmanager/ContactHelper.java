@@ -1,7 +1,6 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
@@ -26,12 +25,12 @@ public class ContactHelper extends HelperBase {
         attach(By.name("photo"), newContact.getPhoto());
 
         if (creation) {
-            new Select(wd.findElement(By.name(app.getProperty("web.newGroup")))).selectByVisibleText(NewContact.getGroup());
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(NewContact.getGroup());
         } else {
-            Assert.assertFalse(isElementPresent(By.name(app.getProperty("web.newGroup"))));
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
 
-        click(By.name(app.getProperty("web.submit")));
+        click(By.name("submit"));
     }
 
     public void chooseById(int id) {
@@ -68,14 +67,10 @@ public class ContactHelper extends HelperBase {
         contactCache = null;
     }
 
-    public boolean isThereAContact() {
-        return isElementPresent(By.name("selected[]"));
-    }
-
     public void create(NewContact newContact) {
-        click(By.linkText(app.getProperty("web.addNewContact")));
+        click(By.linkText("add new"));
         fillContactForm(newContact, true);
-        wd.findElement(By.linkText(app.getProperty("web.homePage"))).click();
+        wd.findElement(By.linkText("home page")).click();
         contactCache = null;
     }
 
@@ -101,7 +96,7 @@ public class ContactHelper extends HelperBase {
             String allEmails = cells.get(4).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             contactCache.add(new NewContact()
-                    .withId(id).withName(firstName).withSurname(lastName).withGroup("[none]")
+                    .withId(id).withName(firstName).withSurname(lastName).withGroup(app.getProperty("web.groupNone"))
                     .withAllPhones(allPhones).withAddress(address).withAllEmails(allEmails));
         }
         return new Contacts(contactCache);
@@ -112,9 +107,9 @@ public class ContactHelper extends HelperBase {
         String firstname = wd.findElement(By.name(app.getProperty("web.firstName"))).getAttribute("value");
         String middlename = wd.findElement(By.name(app.getProperty("web.middleName"))).getAttribute("value");
         String surname = wd.findElement(By.name(app.getProperty("web.surname"))).getAttribute("value");
-        String home = wd.findElement(By.name(app.getProperty("web.home"))).getAttribute("value");
+        String home = wd.findElement(By.name(app.getProperty("web.homePhone"))).getAttribute("value");
         String mobile = wd.findElement(By.name(app.getProperty("web.mobilePhone"))).getAttribute("value");
-        String work = wd.findElement(By.name(app.getProperty("web.work"))).getAttribute("value");
+        String work = wd.findElement(By.name(app.getProperty("web.workPhone"))).getAttribute("value");
         String address = wd.findElement(By.name(app.getProperty("web.address"))).getAttribute("value");
         String firstEmail = wd.findElement(By.name(app.getProperty("web.firstEmail"))).getAttribute("value");
         String secondEmail = wd.findElement(By.name(app.getProperty("web.secondEmail"))).getAttribute("value");

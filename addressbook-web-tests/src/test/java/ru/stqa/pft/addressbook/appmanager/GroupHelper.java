@@ -17,11 +17,11 @@ public class GroupHelper extends HelperBase {
     }
 
     public void returntoGroupPage() {
-        click(By.linkText(app.getProperty("web.groupPage")));
+        click(By.linkText("group page"));
     }
 
     public void submitGroupCreation() {
-        click(By.name(app.getProperty("web.submit"))); //(By.linkText("group page")
+        click(By.name("submit")); //(By.linkText("group page")
     }
 
     public void fillGroupForm(GroupData groupData) {
