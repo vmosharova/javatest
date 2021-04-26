@@ -84,4 +84,8 @@ public class ApplicationManager {
     public SessionHelper session() {
         return sessionHelper;
     }
+
+    public String getProperty(String key) {
+        return properties.getProperty(key);
+    }
 }
