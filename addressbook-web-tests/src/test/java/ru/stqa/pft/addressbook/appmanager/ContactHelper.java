@@ -96,7 +96,7 @@ public class ContactHelper extends HelperBase {
             String allEmails = cells.get(4).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             contactCache.add(new NewContact()
-                    .withId(id).withName(firstName).withSurname(lastName).withGroup(app.getProperty("web.groupNone"))
+                    .withId(id).withName(firstName).withSurname(lastName).withGroup(app.getProperty("web.group"))
                     .withAllPhones(allPhones).withAddress(address).withAllEmails(allEmails));
         }
         return new Contacts(contactCache);
