@@ -1,6 +1,5 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.Contacts;
@@ -16,8 +15,8 @@ public class ContactModificationTests extends TestBase {
         app.goTo().homePage();
         if (app.contact().all().size() == 0) {
             app.contact().create(new NewContact()
-                    .withName("Name1").withMiddlename("MidName1")
-                    .withSurname("Surname1").withGroup("[none]"));
+                    .withName(app.getProperty("web.firstName")).withMiddlename(app.getProperty("web.middleName"))
+                    .withSurname(app.getProperty("surname")).withGroup(app.getProperty("web.groupNone")));
         }
     }
 
@@ -29,8 +28,8 @@ public class ContactModificationTests extends TestBase {
         app.contact().modify(modifiedContact.getId());
         NewContact contact = new NewContact()
                 .withId(modifiedContact.getId())
-                .withName("Name1").withMiddlename("MidNameEdited")
-                .withSurname("SurnameEdited").withGroup("[none]");
+                .withName(app.getProperty("web.firstNameEdited")).withMiddlename(app.getProperty("web.middleNameEdited"))
+                .withSurname(app.getProperty("web.surnameEdited")).withGroup(app.getProperty("web.groupNone"));
         app.contact().edit(contact, false);
         app.contact().submitModification();
         app.goTo().homePage();
