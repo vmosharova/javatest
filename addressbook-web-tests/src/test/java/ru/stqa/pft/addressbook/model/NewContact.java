@@ -36,18 +36,21 @@ public class NewContact {
     private String surname;
 
     @Expose
-    @Column(name = "home")
-    @Type(type = "text")
+    @Transient
+    //@Column(name = "home")
+    //@Type(type = "text")
     private String homePhone;
 
     @Expose
-    @Column(name = "mobile")
-    @Type(type = "text")
+    @Transient
+    //@Column(name = "mobile")
+    //@Type(type = "text")
     private String mobilePhone;
 
     @Expose
-    @Column(name = "work")
-    @Type(type = "text")
+    @Transient
+    //@Column(name = "work")
+    //@Type(type = "text")
     private String workPhone;
 
     @Transient
@@ -55,50 +58,39 @@ public class NewContact {
 
     @Expose
     @Transient
+    //@Column(name = "address")
+    //@Type(type = "text")
     private String address;
 
     @Expose
     @Transient
+    //@Column(name = "email")
+    //@Type(type = "text")
     private String firstEmail;
 
     @Expose
     @Transient
+    //@Column(name = "email2")
+    //@Type(type = "text")
     private String secondEmail;
 
     @Expose
     @Transient
+    //@Column(name = "email3")
+    //@Type(type = "text")
     private String thirdEmail;
 
     @Transient
     private String allEmails;
 
     @Expose
-    @Column(name = "photo")
-    @Type(type = "text")
+    @Transient
+    //@Column(name = "photo")
+    //@Type(type = "text")
     private String photo;
 
 
     public NewContact() {
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        NewContact that = (NewContact) o;
-
-        if (id != that.id) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        return surname != null ? surname.equals(that.surname) : that.surname == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (surname != null ? surname.hashCode() : 0);
-        return result;
     }
 
     public File getPhoto() {
@@ -228,7 +220,6 @@ public class NewContact {
     }
 
 
-
     @Override
     public String toString() {
         return "NewContact{" +
@@ -239,4 +230,27 @@ public class NewContact {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        NewContact contact = (NewContact) o;
+
+        if (id != contact.id) return false;
+        if (name != null ? !name.equals(contact.name) : contact.name != null) return false;
+        if (middlename != null ? !middlename.equals(contact.middlename) : contact.middlename != null) return false;
+        if (surname != null ? !surname.equals(contact.surname) : contact.surname != null) return false;
+        return homePhone != null ? homePhone.equals(contact.homePhone) : contact.homePhone == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (middlename != null ? middlename.hashCode() : 0);
+        result = 31 * result + (surname != null ? surname.hashCode() : 0);
+        result = 31 * result + (homePhone != null ? homePhone.hashCode() : 0);
+        return result;
+    }
 }
