@@ -30,6 +30,16 @@ public class ContactHelper extends HelperBase {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         } */
 
+        if (creation) {
+            if (newContact.getGroups().size() > 0) {
+                Assert.assertTrue(newContact.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group")))
+                        .selectByVisibleText(newContact.getGroups().iterator().next().getName());
+            }
+        } else {
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }
+
         click(By.name("submit"));
     }
 

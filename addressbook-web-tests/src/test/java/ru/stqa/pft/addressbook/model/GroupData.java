@@ -7,6 +7,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @XStreamAlias("groups")
@@ -35,7 +36,6 @@ public class GroupData {
 
     @ManyToMany(mappedBy = "groups")
     private Set<NewContact> contacts = new HashSet<NewContact>();
-
 
     public int getId() {
         return id;
@@ -81,8 +81,8 @@ public class GroupData {
         return footer;
     }
 
-    public Set<NewContact> getContacts() {
-        return contacts;
+    public Contacts getContacts() {
+        return new Contacts((List<NewContact>) contacts);
     }
 
     @Override

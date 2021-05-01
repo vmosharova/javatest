@@ -220,6 +220,11 @@ public class NewContact {
         return new Groups(groups);
     }
 
+    public NewContact inGroup(GroupData group) {
+        groups.add(group);
+        return this;
+    }
+
     @Override
     public String toString() {
         return "NewContact{" +
