@@ -16,7 +16,7 @@ public class ContactModificationTests extends TestBase {
             app.goTo().homePage();
             app.contact().create(new NewContact()
                     .withName(app.getProperty("web.firstName")).withMiddlename(app.getProperty("web.middleName"))
-                    .withSurname(app.getProperty("surname")).withGroup(app.getProperty("web.groupNone")));
+                    .withSurname(app.getProperty("surname")));
         }
     }
 
@@ -29,7 +29,7 @@ public class ContactModificationTests extends TestBase {
         NewContact contact = new NewContact()
                 .withId(modifiedContact.getId())
                 .withName(app.getProperty("web.firstNameEdited")).withMiddlename(app.getProperty("web.middleNameEdited"))
-                .withSurname(app.getProperty("web.surnameEdited")).withGroup(app.getProperty("web.groupNone"));
+                .withSurname(app.getProperty("web.surnameEdited"));
         app.contact().edit(contact, false);
         app.contact().submitModification();
         app.goTo().homePage();
