@@ -94,7 +94,11 @@ public class NewContact {
     }
 
     public File getPhoto() {
-        return new File(photo);
+        if (photo != null) {
+            return new File(photo);
+        } else {
+            return null;
+        }
     }
 
     public NewContact withPhoto(File photo) {

@@ -24,11 +24,11 @@ public class ContactHelper extends HelperBase {
         type(By.name(app.getProperty("web.surname")), newContact.getSurname());
         attach(By.name("photo"), newContact.getPhoto());
 
-        if (creation) {
+        /* if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(NewContact.getGroup());
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
-        }
+        } */
 
         click(By.name("submit"));
     }
