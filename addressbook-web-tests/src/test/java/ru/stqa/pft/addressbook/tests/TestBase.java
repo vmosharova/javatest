@@ -6,8 +6,10 @@ import org.openqa.selenium.remote.BrowserType;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
+import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
+import ru.stqa.pft.addressbook.model.NewContact;
 
 import java.util.stream.Collectors;
 
@@ -43,6 +45,17 @@ public class TestBase {
             Groups uIGroups = app.group().all();
             assertThat(uIGroups, equalTo(dbGroups.stream()
                     .map((g) -> new GroupData().withId(g.getId()).withName(g.getName()))
+                    .collect(Collectors.toSet())));
+        }
+    }
+
+    public void verifyContactListInUI() {
+        if (Boolean.getBoolean("verifyUI")) {
+            Contacts dbContacts = app.db().contacts();
+            Contacts uIContacts = app.contact().all();
+            assertThat(uIContacts, equalTo(dbContacts.stream()
+                    .map((c) -> new NewContact().withName(c.getName()).withMiddlename(c.getMiddlename())
+                            .withSurname(c.getSurname()))
                     .collect(Collectors.toSet())));
         }
     }
