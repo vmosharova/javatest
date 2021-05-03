@@ -5,8 +5,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 import ru.stqa.pft.addressbook.model.NewContact;
 
+import java.io.IOException;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
@@ -78,6 +83,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void create(NewContact newContact) {
+        app.goTo().homePage();
         click(By.linkText("add new"));
         fillContactForm(newContact, true);
         wd.findElement(By.linkText("home page")).click();
@@ -142,4 +148,64 @@ public class ContactHelper extends HelperBase {
     private void initContactModificationById(int id) {
         wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
     }
+
+    // Проверка для добавления теста в группу: мб контакт уже добавлен во все возможные группы:
+    public NewContact selectContact() throws IOException {
+
+        Contacts allContacts = app.db().contacts();
+        Groups allGroups = app.db().groups();
+        for (NewContact contact : allContacts) {
+            if (contact.getGroups().size() < allGroups.size()) {
+                return contact;
+            }
+        }
+        app.goTo().groupPage();
+        app.group().create(new GroupData().withName("test1").withHeader("header1").withFooter("footer1"));
+        return allContacts.iterator().next();
+    }
+
+    public GroupData selectGroup(NewContact contact) {
+        Groups allGroups = app.db().groups();
+        Groups contactsInGroups = contact.getGroups();
+
+        Collection<GroupData> contactGroups = new HashSet<>(contactsInGroups);
+        Collection<GroupData> avaliableGroups = new HashSet<>(allGroups);
+        avaliableGroups.removeAll(contactGroups);
+        return avaliableGroups.iterator().next();
+    }
+
+    public NewContact selectContactById(NewContact addContact) {
+        Contacts contactsById = app.db().contacts();
+        return contactsById.iterator().next().withId(addContact.getId());
+    }
+
+    public void selectContactCheckbox(int index) {
+        wd.findElements(By.name("selected[]")).get(index).click();
+    }
+
+    public void selectContactCheckboxById(int id) {
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+    }
+
+    public void addToGroupButton() {
+        wd.findElement(By.name("add")).click();
+    }
+
+    public void goToGroupPageAfterAddingContactToGroup() {
+        wd.findElement(By.partialLinkText("group page")).click();
+    }
+
+    public void selectGroupFromListToAdd(int groupId) {
+        new Select(wd.findElement(By.name("to_group"))).selectByValue(String.valueOf(groupId));
+    }
+
+    public void addContactToGroup(NewContact contactData, GroupData groupData) {
+
+        selectContactCheckboxById(contactData.getId());
+        selectGroupFromListToAdd(groupData.getId());
+        addToGroupButton();
+        goToGroupPageAfterAddingContactToGroup();
+        contactCache = null;
+    }
 }
+
