@@ -1,22 +1,19 @@
 package ru.stqa.pft.addressbook.tests;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 import ru.stqa.pft.addressbook.model.NewContact;
 
 import java.io.IOException;
-import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
-public class AddContactToGroupTests extends TestBase {
+public class RemoveGroupFromContactTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditionsForAddingContactInGroup() {
@@ -26,23 +23,21 @@ public class AddContactToGroupTests extends TestBase {
         }
         if (app.db().contacts().size() == 0) {
             app.contact().create(new NewContact().withName(app.getProperty("web.firstName"))
-            .withMiddlename(app.getProperty("web.middleName")).withSurname(app.getProperty("web.surname")));
+                    .withMiddlename(app.getProperty("web.middleName")).withSurname(app.getProperty("web.surname")));
         }
     }
 
     @Test
-    public void testAddContactToGroup() throws IOException {
-        app.goTo().homePage();
-        NewContact contact = app.contact().selectContact(true);
-        GroupData groupToAddContactTo = app.contact().selectGroup(contact, true);
+    public void testContactRemoveFromGroup() throws IOException {
+
+        NewContact contact = app.contact().selectContact(false);
+        GroupData groupToRemoveContactFrom = app.contact().selectGroup(contact,false);
         Groups before = contact.getGroups();
         app.goTo().homePage();
-        app.contact().addContactToGroup(contact, groupToAddContactTo);
-        app.goTo().homePage();
-        NewContact contactAfter = app.contact().selectContactById(contact);
-        Groups after = contactAfter.getGroups();
-        assertThat(after, equalTo(before.withAdded(groupToAddContactTo)));
+        app.contact().selectGroupFromList(groupToRemoveContactFrom.getId());
+        app.contact().removeContactFromGroup(contact, groupToRemoveContactFrom);
+        NewContact contactsAfter = app.contact().selectContactById(contact);
+        Groups after = contactsAfter.getGroups();
+        assertThat(after, equalTo(before.without(groupToRemoveContactFrom)));
     }
-
-    }
-
+}

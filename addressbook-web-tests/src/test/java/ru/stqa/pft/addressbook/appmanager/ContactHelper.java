@@ -150,37 +150,53 @@ public class ContactHelper extends HelperBase {
     }
 
     // Проверка для добавления теста в группу: мб контакт уже добавлен во все возможные группы:
-    public NewContact selectContact() throws IOException {
+    public NewContact selectContact(boolean adding) throws IOException {
 
         Contacts allContacts = app.db().contacts();
-        Groups allGroups = app.db().groups();
-        for (NewContact contact : allContacts) {
-            if (contact.getGroups().size() < allGroups.size()) {
-                return contact;
+        if (adding) {
+            Groups allGroups = app.db().groups();
+            for (NewContact contact : allContacts) {
+                if (contact.getGroups().size() < allGroups.size()) {
+                    return contact;
+                }
             }
+            app.goTo().groupPage();
+            app.group().create(new GroupData().withName("test1").withHeader("header1").withFooter("footer1"));
+            return allContacts.iterator().next();
+        } else {
+            for (NewContact contact : allContacts) {
+                if (contact.getGroups().size() > 0) {
+                    return contact;
+                }
+            }
+            NewContact contact = app.db().contacts().iterator().next();
+            app.contact().addContactToGroup(contact, app.db().groups().iterator().next());
+            return contact;
         }
-        app.goTo().groupPage();
-        app.group().create(new GroupData().withName("test1").withHeader("header1").withFooter("footer1"));
-        return allContacts.iterator().next();
+
+   }
+
+    public GroupData selectGroup(NewContact contact, boolean adding) {
+        if (adding) {
+            Groups allGroups = app.db().groups();
+            Groups contactsInGroups = contact.getGroups();
+
+            Collection<GroupData> contactGroups = new HashSet<>(contactsInGroups);
+            Collection<GroupData> avaliableGroups = new HashSet<>(allGroups);
+            avaliableGroups.removeAll(contactGroups);
+            return avaliableGroups.iterator().next();
+        } else {
+            NewContact contactToRemove = selectContactById(contact);
+            Groups groupsInRemovedContact = contact.getGroups();
+            return groupsInRemovedContact.iterator().next();
+        }
     }
 
-    public GroupData selectGroup(NewContact contact) {
-        Groups allGroups = app.db().groups();
-        Groups contactsInGroups = contact.getGroups();
 
-        Collection<GroupData> contactGroups = new HashSet<>(contactsInGroups);
-        Collection<GroupData> avaliableGroups = new HashSet<>(allGroups);
-        avaliableGroups.removeAll(contactGroups);
-        return avaliableGroups.iterator().next();
-    }
 
     public NewContact selectContactById(NewContact addContact) {
         Contacts contactsById = app.db().contacts();
         return contactsById.iterator().next().withId(addContact.getId());
-    }
-
-    public void selectContactCheckbox(int index) {
-        wd.findElements(By.name("selected[]")).get(index).click();
     }
 
     public void selectContactCheckboxById(int id) {
@@ -206,6 +222,17 @@ public class ContactHelper extends HelperBase {
         addToGroupButton();
         goToGroupPageAfterAddingContactToGroup();
         contactCache = null;
+    }
+
+    public void removeContactFromGroup(NewContact contact, GroupData groupData) {
+        selectContactCheckboxById(contact.getId());
+        wd.findElement(By.name("remove")).click();
+        goToGroupPageAfterAddingContactToGroup();
+        contactCache = null;
+    }
+
+    public void selectGroupFromList(int groupId) {
+        new Select(wd.findElement(By.name("group"))).selectByValue(String.valueOf(groupId));
     }
 }
 
