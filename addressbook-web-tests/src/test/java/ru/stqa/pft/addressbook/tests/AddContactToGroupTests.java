@@ -1,20 +1,15 @@
 package ru.stqa.pft.addressbook.tests;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 import ru.stqa.pft.addressbook.model.NewContact;
 
 import java.io.IOException;
-import java.util.Collection;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class AddContactToGroupTests extends TestBase {
 
@@ -42,7 +37,6 @@ public class AddContactToGroupTests extends TestBase {
         NewContact contactAfter = app.contact().selectContactById(contact);
         Groups after = contactAfter.getGroups();
         assertThat(after, equalTo(before.withAdded(groupToAddContactTo)));
-    }
-
+        }
     }
 

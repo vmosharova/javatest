@@ -173,7 +173,6 @@ public class ContactHelper extends HelperBase {
             app.contact().addContactToGroup(contact, app.db().groups().iterator().next());
             return contact;
         }
-
    }
 
     public GroupData selectGroup(NewContact contact, boolean adding) {

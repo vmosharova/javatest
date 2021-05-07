@@ -75,7 +75,6 @@ public class ContactCreationTests extends TestBase {
                 before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
         verifyContactListInUI();
     }
-
     /* Тест, проверяющий путь к файлу и наличие файоа:
     @Test
     public void testCurrentDir() {
@@ -85,5 +84,4 @@ public class ContactCreationTests extends TestBase {
         System.out.println(photo.getAbsolutePath());
         System.out.println(photo.exists());
     } */
-
 }
