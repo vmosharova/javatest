@@ -17,4 +17,6 @@ gradle-app.setting
 
 .xml
 
+mantis-tests/build.gradle
+
 
