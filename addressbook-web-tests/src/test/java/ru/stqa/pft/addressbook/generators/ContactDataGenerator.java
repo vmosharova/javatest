@@ -48,7 +48,8 @@ public class ContactDataGenerator {
             saveAsJson(contacts, new File(file));
         } else {
             System.out.println("Unrecognized format " + format);
-        };
+        }
+        ;
     }
 
     private void saveAsJson(List<NewContact> contacts, File file) throws IOException {

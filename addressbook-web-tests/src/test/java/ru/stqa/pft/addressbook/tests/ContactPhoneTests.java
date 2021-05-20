@@ -34,13 +34,13 @@ public class ContactPhoneTests extends TestBase {
     }
 
     private String mergePhones(NewContact contact) {
-       return Arrays.asList(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone())
-               .stream().filter((s) -> ! s.equals(""))
-               .map(ContactPhoneTests::cleaned)
-               .collect(Collectors.joining("\n"));
+        return Arrays.asList(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone())
+                .stream().filter((s) -> !s.equals(""))
+                .map(ContactPhoneTests::cleaned)
+                .collect(Collectors.joining("\n"));
     }
 
     public static String cleaned(String phone) {
-        return phone.replaceAll("\\s", "").replaceAll("[-()]","");
+        return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
     }
 }

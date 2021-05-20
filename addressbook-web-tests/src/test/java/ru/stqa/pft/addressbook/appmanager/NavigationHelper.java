@@ -16,12 +16,12 @@ public class NavigationHelper extends HelperBase {
             return;
         }
         click(By.linkText("groups"));
-      //wd.findElement(By.linkText("groups")).click();
+        //wd.findElement(By.linkText("groups")).click();
     }
 
     public void homePage() {
         if (isElementPresent(By.tagName("h1"))
-                &&  wd.findElement(By.tagName("h1")).getText().equals("home")) {
+                && wd.findElement(By.tagName("h1")).getText().equals("home")) {
             return;
         }
         wd.findElement(By.linkText("home")).click();

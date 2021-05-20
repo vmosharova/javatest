@@ -1,17 +1,17 @@
 <list>
-  <contacts>
-    <name>name 0</name>
-    <middlename>midname 0</middlename>
-    <surname>surname 0</surname>
-  </contacts>
-  <contacts>
-    <name>name 1</name>
-    <middlename>midname 1</middlename>
-    <surname>surname 1</surname>
-  </contacts>
-  <contacts>
-    <name>name 2</name>
-    <middlename>midname 2</middlename>
-    <surname>surname 2</surname>
-  </contacts>
+    <contacts>
+        <name>name 0</name>
+        <middlename>midname 0</middlename>
+        <surname>surname 0</surname>
+    </contacts>
+    <contacts>
+        <name>name 1</name>
+        <middlename>midname 1</middlename>
+        <surname>surname 1</surname>
+    </contacts>
+    <contacts>
+        <name>name 2</name>
+        <middlename>midname 2</middlename>
+        <surname>surname 2</surname>
+    </contacts>
 </list>

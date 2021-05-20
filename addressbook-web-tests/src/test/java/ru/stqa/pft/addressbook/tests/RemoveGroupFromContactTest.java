@@ -29,7 +29,7 @@ public class RemoveGroupFromContactTest extends TestBase {
     public void testContactRemoveFromGroup() throws IOException {
 
         NewContact contact = app.contact().selectContact(false);
-        GroupData groupToRemoveContactFrom = app.contact().selectGroup(contact,false);
+        GroupData groupToRemoveContactFrom = app.contact().selectGroup(contact, false);
         Groups before = contact.getGroups();
         app.goTo().homePage();
         app.contact().selectGroupFromList(groupToRemoveContactFrom.getId());

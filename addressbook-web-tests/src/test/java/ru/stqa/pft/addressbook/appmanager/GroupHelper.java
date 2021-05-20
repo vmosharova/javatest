@@ -75,7 +75,7 @@ public class GroupHelper extends HelperBase {
     }
 
     public int count() {
-       return wd.findElements(By.name("selected[]")).size();
+        return wd.findElements(By.name("selected[]")).size();
     }
 
     private Groups groupCache = null;
@@ -89,7 +89,7 @@ public class GroupHelper extends HelperBase {
         for (WebElement element : elements) {
             String name = element.getText(); //получаем название группы
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            groupCache .add(new GroupData().withId(id).withName(name));
+            groupCache.add(new GroupData().withId(id).withName(name));
         }
         return new Groups(groupCache);
     }

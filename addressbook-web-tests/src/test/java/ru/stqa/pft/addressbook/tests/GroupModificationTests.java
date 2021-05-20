@@ -13,7 +13,7 @@ public class GroupModificationTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         // Предпроверка наличия групп выполняется максимально быстро ч/з обращение к БД
-        if(app.db().groups().size() == 0) {
+        if (app.db().groups().size() == 0) {
             app.goTo().groupPage();
             app.group().create(new GroupData().withName(app.getProperty("web.group")));
         }

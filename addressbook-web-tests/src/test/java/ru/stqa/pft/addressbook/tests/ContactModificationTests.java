@@ -12,7 +12,7 @@ public class ContactModificationTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditionsForContacts() {
-        if(app.db().contacts().size() == 0) {
+        if (app.db().contacts().size() == 0) {
             app.goTo().homePage();
             app.contact().create(new NewContact()
                     .withName(app.getProperty("web.firstName")).withMiddlename(app.getProperty("web.middleName"))

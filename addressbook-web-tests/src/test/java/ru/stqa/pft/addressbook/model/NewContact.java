@@ -141,10 +141,12 @@ public class NewContact {
         this.workPhone = workPhone;
         return this;
     }
+
     public NewContact withAllPhones(String allPhones) {
         this.allPhones = allPhones;
         return this;
     }
+
     public NewContact withAddress(String address) {
         this.address = address;
         return this;
@@ -154,10 +156,12 @@ public class NewContact {
         this.firstEmail = firstEmail;
         return this;
     }
+
     public NewContact withSecondEmail(String secondEmail) {
         this.secondEmail = secondEmail;
         return this;
     }
+
     public NewContact withThirdEmail(String thirdEmail) {
         this.thirdEmail = thirdEmail;
         return this;
@@ -199,18 +203,23 @@ public class NewContact {
     public String getAllPhones() {
         return allPhones;
     }
+
     public String getAllEmails() {
         return allEmails;
     }
+
     public String getAddress() {
         return address;
     }
+
     public String getFirstEmail() {
         return firstEmail;
     }
+
     public String getSecondEmail() {
         return secondEmail;
     }
+
     public String getThirdEmail() {
         return thirdEmail;
     }

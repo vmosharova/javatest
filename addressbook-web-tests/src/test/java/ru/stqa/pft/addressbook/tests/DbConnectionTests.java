@@ -16,7 +16,7 @@ public class DbConnectionTests {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT group_id,group_name,group_header,group_footer FROM group_list");
             Groups groups = new Groups();
-            while(rs.next()) {
+            while (rs.next()) {
                 groups.add(new GroupData().withId(rs.getInt("group_id")).withName(rs.getNString("group_name"))
                         .withHeader(rs.getString("group_header")).withFooter(rs.getString("group_footer")));
             }
