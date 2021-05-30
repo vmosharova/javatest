@@ -13,7 +13,8 @@ import java.util.List;
 
 public class RegistrationTests extends TestBase {
 
-    @BeforeMethod
+    //Отключаем BeforeMethod, так как используем отдельно стоящий сервер James
+    //@BeforeMethod
     public void startMailServer() {
         app.mail().start();
     }
@@ -24,8 +25,10 @@ public class RegistrationTests extends TestBase {
         String email = String.format("user1%s@localhost.localdomain", now);
         String user1 = String.format("user1%s", now);
         String password = "password";
+        app.james().createUser(user1, password);
         app.registration().start(user1, email);
-        List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
+        //List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
+        List<MailMessage> mailMessages = app.james().waitForMail(user1, password, 60000);
         String confirmationLink = findConfirmationLink(mailMessages, email);
         app.registration().finish(confirmationLink, password);
         Assert.assertTrue(app.newSession().login(user1, password));
@@ -39,7 +42,7 @@ public class RegistrationTests extends TestBase {
         return regex.getText(mailMessage.text);
     }
 
-    @AfterMethod(alwaysRun = true)
+    //@AfterMethod(alwaysRun = true)
     public void stopMailServer() {
         app.mail().stop();
     }
